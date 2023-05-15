@@ -18,3 +18,26 @@
 * Company Overview and reviews
 
 * Job saved(favourited) option
+
+### Jobs(db) 
+title
+description
+company
+location
+view_count
+saved_count
+
+### Reviews(db)
+title
+content
+job_title
+location
+is_current
+rating
+
+### Users(db)
+first_name
+last_name
+email
+password
+password_confirmation
