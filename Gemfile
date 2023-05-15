@@ -48,6 +48,8 @@ gem 'pry-rails', '~> 0.3.9'
 
 gem 'faker', '~> 3.2'
 
+gem 'cowsay', '~> 0.3.0'
+
 gem 'cancancan', '~> 3.5'
 
 gem 'jquery-rails', '~> 4.4'
