@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-    before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+    before_action :authenticate_user!, except: [:index, :show]
 
     def index
         @jobs = Job.all.order(created_at: :desc)
@@ -27,17 +27,11 @@ class JobsController < ApplicationController
 
     def edit
         @job = Job.find(params[:id])
-        if can?(:edit, @job) == false
-            redirect_to root_path, alert: 'User Not Authorized!'
-        end
     end
 
     def update
         @job = Job.find(params[:id])
-
-        if can?(:edit, @job) == false
-            redirect_to root_path, alert: 'User Not Authorized!'
-        elsif @job.update(job_params)
+        if @job.update job_params
             redirect_to job_path(@job)
         else
             render :edit
@@ -46,13 +40,12 @@ class JobsController < ApplicationController
 
     def destroy
         @job = Job.find(params[:id])
+        @job.destroy
+        redirect_to jobs_path
+    end
 
-        if can?(:delete, @job) == false
-            redirect_to root_path, alert: 'User Not Authorized!'
-        else
-            @job.destroy
-            redirect_to jobs_path
-        end
+    def authorize!
+        redirect_to root_path, alert: "Not Authorized" unless can?(:crud, @product)
     end
 
     private

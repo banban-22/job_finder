@@ -18,7 +18,7 @@ User.destroy_all()
         rand(1..5).times do
             Review.create(
                 title: Faker::Quotes::Rajnikanth.joke,
-                content: Faker::Lorem.paragraph(sentence_count: 2),
+                content: Faker::Lorem.sentences(number: 15),
                 rating: rand(1..5),
                 job_title: Faker::Job.title(),
                 location: Faker::Address.city(),
