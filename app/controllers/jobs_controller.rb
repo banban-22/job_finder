@@ -15,17 +15,14 @@ class JobsController < ApplicationController
     end
 
     def create
-        @job = Job.new job_params
-        @job.user = current_user
+    @job = Job.new(job_params)
+    @job.user = current_user
 
-        if can?(:create, @job) == false
-            redirect_to root_path, alert: 'User Not Authorized!'
-        elsif
-            @job.save
-            redirect_to job_path(@job)
-        else
-            render :new
-        end
+    if @job.save
+        redirect_to @job, notice: 'Job was successfully created.'
+    else
+        render :new
+    end
     end
 
     def edit

@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title"><%= @job.title %></h2>
+    <h4 class="card-subtitle mb-2 text-body-secondary"><%= @job.company %> | <%= @job.location %></h4>
+    <p class="card-text"><%= @job.description%></p>
+
+    <p>
+    Updated <%= time_ago_in_words(@job.updated_at) %> ago</p>
+    <small><%= @job.view_count %> people are watched this job</small>
+    <small><%= @job.saved_count %> peopel are saved this job</small>
+
+    <% if current_user && current_user == @job.user %>
+    <%= button_to "Edit", edit_job_path(@job), class: "btn btn-outline-primary" %>
+    <%= button_to "Delete", job_path(@job), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger" %>
+    <% end %>
+
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
