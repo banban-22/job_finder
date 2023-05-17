@@ -9,6 +9,10 @@ class Job < ApplicationRecord
 
     before_validation(:set_default_view_count)
 
+    def self.search(keyword)
+        where('title ILIKE ?', "%#{keyword}%")
+    end
+
     private
 
     def set_default_view_count

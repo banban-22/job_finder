@@ -2,7 +2,13 @@ class JobsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
 
     def index
-        @jobs = Job.all.order(created_at: :desc)
+        if params[:q].present?
+            @q = params[:q]
+            @jobs = Job.search(@q)
+        else
+            @q = ""
+            @jobs = Job.all
+        end
     end
 
     def show

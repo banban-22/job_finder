@@ -1,3 +1,8 @@
+    <%= form_tag(jobs_path, method: :get, params: { q: @q }) do %>
+        <%= text_field_tag :q, @q, placeholder: "Search By Title" %>
+        <%= submit_tag "Search!" %>
+    <% end %>
+    
     <div class="row">
         <% @jobs.each do |job| %>
             <div class="col-md-6">
