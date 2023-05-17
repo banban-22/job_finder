@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
+    before_action :authorize_recruiter!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
         if params[:q].present?
@@ -51,11 +52,17 @@ class JobsController < ApplicationController
     end
 
     def authorize!
-        redirect_to root_path, alert: "Not Authorized" unless can?(:crud, @product)
+        redirect_to root_path, alert: "Not Authorized" unless can?(:crud, @job)
     end
 
     private
     def job_params
         params.require(:job).permit(:title, :description, :company, :location)
+    end
+
+    def authorize_recruiter!
+        unless current_user.is_recruiter? || current_user.is_admin?
+        redirect_to root_path, alert: "You are not authorized to perform this action."
+        end
     end
 end
