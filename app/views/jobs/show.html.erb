@@ -8,6 +8,18 @@
     <div class="d-flex flex-column">
       <small><%= @job.view_count %> people are watched this job</small>
       <small><%= @job.saved_count %> people are saved this job</small>
+      <small><%= @job.apply.count %> people are applied to this job</small>
+    </div>
+
+    <div class="w-100 mt-3">
+      <% if current_user && current_user != @job.user && !current_user.is_admin? %>
+      <% @apply = @job.apply.find_by(user_id: current_user.id) %>
+        <% if @apply.present? %>
+          <%= button_to "Applied!", job_apply_index_path(@job, @apply), { disabled: true, class: "btn w-100" } %>
+        <% else %>
+          <%= button_to "Apply", job_apply_index_path(@job), method: :post, class: "btn btn-outline-primary w-100" %>
+        <% end %>      
+      <% end %>
     </div>
 
     <div class="d-flex">

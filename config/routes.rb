@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :jobs do
     resources :reviews
+    resources :apply, only: [:create, :destroy]
   end
 
   resource :sessions
@@ -21,5 +22,7 @@ Rails.application.routes.draw do
       patch :update_password
     end
   end
+
+  resources :apply, only: [:index]
 
 end

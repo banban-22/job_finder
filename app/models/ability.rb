@@ -22,5 +22,9 @@ class Ability
         else
             can :manage, :read
         end
+
+        can :create, Apply do |apply|
+            user.persisted? && apply.user != user.is_recruiter && user_id:user.id
+        end
     end
 end
