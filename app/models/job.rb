@@ -1,13 +1,18 @@
 class Job < ApplicationRecord
     has_many :reviews, dependent: :destroy
     has_many :apply, dependent: :destroy
-    has_many :applicants, through: :apply, source: :user
+    has_many :applications, through: :apply, source: :user
+    has_many :likes, dependent: :destroy
+    has_many :likers, through: :likes, source: :user
+
     belongs_to :user, optional: true
 
     validates :title, presence: true
     validates :company, presence: true
     validates :location, presence: true
     validates :description, presence: true
+
+    
 
     before_validation(:set_default_view_count)
 

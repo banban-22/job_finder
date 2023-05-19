@@ -27,9 +27,9 @@ class ApplicationsController < ApplicationController
     @job = Job.find(params[:job_id])
     @application = @job.applications.find(params[:id])
 
-    if can?(:update, @application)
+    if can?(:edit, @application)
       if @application.update(application_params)
-        redirect_to job_path(@job)
+        redirect_to job_path(@job), notice: 'Application status was successfully updated.'
       else
         render :edit
       end

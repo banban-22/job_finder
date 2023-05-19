@@ -29,9 +29,16 @@ class Ability
             user.persisted? && apply.user != user.is_recruiter && apply.user_id == user.id
         end
 
-
         can :delete, Review do |review|
             review.user_id == user.id
+        end
+
+        can :like, Job do |job|
+            user.persisted? && job.user != user
+        end
+
+        can :destroy, Like do |like|
+            like.user == user
         end
     end
 end

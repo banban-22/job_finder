@@ -16,6 +16,10 @@ class JobsController < ApplicationController
         @job = Job.find(params[:id])
         @review = Review.new
         @reviews = @job.reviews
+        @like = @job.likes.find_by(user: current_user)
+        @applications = @job.applications.order(created_at: :desc)
+        @application = @applications.find_by(id: current_user&.id)
+        @application ||= Application.new
     end
 
     def new
@@ -24,14 +28,14 @@ class JobsController < ApplicationController
     end
 
     def create
-    @job = Job.new(job_params)
-    @job.user = current_user
+        @job = Job.new(job_params)
+        @job.user = current_user
 
-    if @job.save
-        redirect_to @job, notice: 'Job was successfully created.'
-    else
-        render :new
-    end
+        if @job.save
+            redirect_to @job, notice: 'Job was successfully created.'
+        else
+            render :new
+        end
     end
 
     def edit
@@ -55,6 +59,10 @@ class JobsController < ApplicationController
 
     def authorize!
         redirect_to root_path, alert: "Not Authorized" unless can?(:crud, @job)
+    end
+
+    def liked
+        @jobs = current_user.liked_jobs.order(created_at: :desc)
     end
 
     private

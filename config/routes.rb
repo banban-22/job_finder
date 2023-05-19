@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :jobs do
     resources :apply, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+    get:liked, on: :collection
   end
 
   resources :jobs do
@@ -32,6 +34,6 @@ Rails.application.routes.draw do
     resources :applications, only: [:new, :create]
   end
 
-  resources :applications, only[:index]
+  resources :applications, only: [:index]
 
 end

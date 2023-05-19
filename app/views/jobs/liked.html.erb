@@ -1,0 +1,10 @@
+<h1>Saved Jobs</h1>
+    <% if @jobs.empty? %>
+        <h2> No Saved jobs </h2>
+    <% else %>
+        <% @jobs.each do |job| %>
+            <div>
+                <h3><%= link_to(job.title,job_path(job)) %> </h3>
+            </div>
+        <% end %>
+    <% end %>

@@ -1,13 +1,33 @@
 <div class="card">
   <div class="card-body">
-    <h2 class="card-title"><%= @job.title %></h2>
+    <h2 class="card-title show-title">
+      <%= @job.title %>
+      <% if @like.present? %>
+          <%= button_to 'Unsaved', job_like_path(@job, @like), :method => :delete, class: "btn btn-outline-secondary mb-2" %>
+      <% else %>
+          <%= button_to "Save", job_likes_path(@job), :method => :post, class: "btn btn-secondary mb-2" %>
+      <% end %>
+      
+    </h2>
+    <% if @job.applications.any? %>
+      <div class="status-badge">
+        <% if @application.status == "interview" %>
+          <span class="badge badge-primary">Interview</span>
+        <% elsif @application.status == "pending" %>
+          <span class="badge badge-warning">Pending</span>
+        <% elsif @application.status == "rejected" %>
+          <span class="badge badge-danger">Rejected</span>
+        <% elsif @application.status == "applied" %>
+          <span class="badge badge-success">Applied</span>
+        <% end %>
+      </div>
+    <% end %>
     <h4 class="card-subtitle mb-2 text-body-secondary"><%= @job.company %> | <%= @job.location %></h4>
     <p class="card-text"><%= @job.description%></p>
 
     <p>Updated <%= time_ago_in_words(@job.updated_at) %> ago</p>
     <div class="d-flex flex-column">
-      <small><%= @job.view_count %> people are watched this job</small>
-      <small><%= @job.saved_count %> people are saved this job</small>
+      <small><%= @job.likes.count %> people are saved this job</small>
       <small><%= @job.apply.count %> people are applied to this job</small>
     </div>
 
@@ -22,6 +42,22 @@
       <% end %>
     </div>
 
+    <div class="w-100 mt-3">
+      <% if current_user && current_user.is_recruiter? %>
+        <%= form_with(model: @application, url: job_application_path(@job, @application), method: :patch, local: true) do |form| %>
+          <div class="form-group">
+            <%= form.select :status, options_for_select(["interview", "pending", "rejected", "applied"], @application.status), {}, class: "form-control" %>
+          </div>
+          <%= form.submit "Update Status", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+    </div>
+
+
+    <%= debug @application %>
+    <%= debug @applications %>
+
+
     <div class="d-flex">
       <% if current_user && current_user == @job.user %>
       <%= link_to "Edit", edit_job_path(@job), class: "btn btn-outline-primary" %>
@@ -31,7 +67,6 @@
   </div>
 </div>
 
-<hr>
 
 <% if current_user && !@apply.present?  %>
   <% @review = @job.reviews.find_by(user_id: current_user.id) %>
@@ -39,6 +74,9 @@
 <% end %>
 
 <h2 class="mt-3">Reviews</h2>
+<% if @job.reviews.blank? %>
+  <p>No reviews yet.</p>
+<% end %>
 
 <% @job.reviews.each do |review| %>
   <div>
@@ -64,4 +102,4 @@
   <hr>
 <% end %>
 
-<%= link_to "Back", jobs_path %>
+<%= link_to "Back to Home", jobs_path %>

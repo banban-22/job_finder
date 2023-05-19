@@ -3,8 +3,10 @@ class User < ApplicationRecord
 
     has_many :jobs
     has_many :reviews
-    has_many :apply
-    has_many :applications, through: :apply, source: :job
+    has_many :applies
+    has_many :applications, through: :applies, source: :job
+    has_many :likes, dependent: :destroy
+    has_many :liked_jobs, through: :likes, source: :job
 
     validates :first_name, presence: true
     validates :last_name, presence: true
