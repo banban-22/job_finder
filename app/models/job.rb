@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
     has_many :reviews, dependent: :destroy
     has_many :apply, dependent: :destroy
+    has_many :applicants, through: :apply, source: :user
     belongs_to :user, optional: true
 
     validates :title, presence: true

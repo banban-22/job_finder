@@ -1,0 +1,33 @@
+<%= form_with model: [@job, @review], url: job_reviews_path(@job.id) do |form| %>
+  <div class="form-group mt-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.label :job_title %>
+    <%= form.text_field :job_title, class: "form-control" %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.label :is_current, "Current Worker" %>
+    <%= form.check_box :is_current %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.label :rating %>
+    <%= form.number_field :rating, class: "form-control" %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Create Review", class: "btn btn-primary mt-3" %>
+<% end %>

@@ -1,3 +1,6 @@
+## Framwork: Rails
+## Database: Postgresql
+
 ## User Story
 * As a non-experience job searcher, I want a platform that can easily looking for and apply jobs, and also manage where I applied and my status, so that I don't need other tools/platforms
 

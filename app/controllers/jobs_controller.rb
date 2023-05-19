@@ -15,10 +15,12 @@ class JobsController < ApplicationController
     def show
         @job = Job.find(params[:id])
         @review = Review.new
+        @reviews = @job.reviews
     end
 
     def new
         @job = Job.new
+        @applications = Application.order(created_at: :desc)
     end
 
     def create

@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   # patch '/jobs/:id/edit', to: 'jobs#update', as: 'job_update'
 
   resources :jobs do
-    resources :reviews
     resources :apply, only: [:create, :destroy]
+  end
+
+  resources :jobs do
+    resources :reviews
   end
 
   resource :sessions
@@ -24,5 +27,11 @@ Rails.application.routes.draw do
   end
 
   resources :apply, only: [:index]
+
+  resources :jobs do
+    resources :applications, only: [:new, :create]
+  end
+
+  resources :applications, only[:index]
 
 end
