@@ -17,9 +17,8 @@ class JobsController < ApplicationController
         @review = Review.new
         @reviews = @job.reviews
         @like = @job.likes.find_by(user: current_user)
-        @applications = @job.applications.order(created_at: :desc)
-        @application = @applications.find_by(id: current_user&.id)
-        @application ||= Application.new
+        # @applications = current_user.applications.where(job: @job).order(created_at: :desc)
+        # @application = @applications.first || Application.new
     end
 
     def new

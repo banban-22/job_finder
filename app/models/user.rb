@@ -5,6 +5,7 @@ class User < ApplicationRecord
     has_many :reviews
     has_many :applies
     has_many :applications, through: :applies, source: :job
+    has_many :jobs, through: :applications
     has_many :likes, dependent: :destroy
     has_many :liked_jobs, through: :likes, source: :job
 

@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_203157) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_053759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "application_statuses", force: :cascade do |t|
+    t.bigint "application_id", null: false
+    t.bigint "status_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "index_application_statuses_on_application_id"
+    t.index ["status_id"], name: "index_application_statuses_on_status_id"
+  end
 
   create_table "applications", force: :cascade do |t|
     t.bigint "job_id", null: false
@@ -71,6 +80,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_203157) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -83,6 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_203157) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "application_statuses", "applications"
+  add_foreign_key "application_statuses", "statuses"
   add_foreign_key "applications", "jobs"
   add_foreign_key "applications", "users"
   add_foreign_key "applies", "jobs"

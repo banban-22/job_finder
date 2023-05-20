@@ -2,6 +2,7 @@ class Job < ApplicationRecord
     has_many :reviews, dependent: :destroy
     has_many :apply, dependent: :destroy
     has_many :applications, through: :apply, source: :user
+    has_many :users, through: :applications
     has_many :likes, dependent: :destroy
     has_many :likers, through: :likes, source: :user
 

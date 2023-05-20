@@ -9,19 +9,7 @@
       <% end %>
       
     </h2>
-    <% if @job.applications.any? %>
-      <div class="status-badge">
-        <% if @application.status == "interview" %>
-          <span class="badge badge-primary">Interview</span>
-        <% elsif @application.status == "pending" %>
-          <span class="badge badge-warning">Pending</span>
-        <% elsif @application.status == "rejected" %>
-          <span class="badge badge-danger">Rejected</span>
-        <% elsif @application.status == "applied" %>
-          <span class="badge badge-success">Applied</span>
-        <% end %>
-      </div>
-    <% end %>
+    
     <h4 class="card-subtitle mb-2 text-body-secondary"><%= @job.company %> | <%= @job.location %></h4>
     <p class="card-text"><%= @job.description%></p>
 
@@ -43,19 +31,16 @@
     </div>
 
     <div class="w-100 mt-3">
-      <% if current_user && current_user.is_recruiter? %>
-        <%= form_with(model: @application, url: job_application_path(@job, @application), method: :patch, local: true) do |form| %>
-          <div class="form-group">
-            <%= form.select :status, options_for_select(["interview", "pending", "rejected", "applied"], @application.status), {}, class: "form-control" %>
-          </div>
-          <%= form.submit "Update Status", class: "btn btn-primary" %>
-        <% end %>
+    <% if current_user && current_user.is_recruiter? %>
+      <%= form_with(model: @application, url: job_application_path(@job, @application), method: :patch, local: true) do |form| %>
+        <div class="form-group">
+          <%= form.label :status %>
+          <%= form.select :status, options_for_select(["Interview", "Pending", "Rejected"], @application.status), {}, class: "form-control" %>
+        </div>
+        <%= form.submit "Update Status", class: "btn btn-primary" %>
       <% end %>
-    </div>
-
-
-    <%= debug @application %>
-    <%= debug @applications %>
+    <% end %>
+  </div>
 
 
     <div class="d-flex">

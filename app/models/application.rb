@@ -1,4 +1,10 @@
 class Application < ApplicationRecord
     belongs_to :user
-    belongs_to :job, foreign_key: 'job_id'
+    belongs_to :Job
+    has_many :application_statuses
+    has_many :statuses, through: :application_statuses
+
+    def current_status
+        statuses.last
+    end
 end

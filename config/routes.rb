@@ -11,8 +11,13 @@ Rails.application.routes.draw do
 
   resources :jobs do
     resources :apply, only: [:create, :destroy]
+    resources :applications, only: [:new, :create]
     resources :likes, only: [:create, :destroy]
     get:liked, on: :collection
+  end
+
+  resources :applications, only: [:index] do
+    resources :statuses, only: [:update]
   end
 
   resources :jobs do
