@@ -12,4 +12,9 @@ class ApplicationController < ActionController::Base
         @current_user ||= User.find_by_id session[:user_id]
     end
     helper_method :current_user
+
+    def user_recruiter?
+        current_user.present? && current_user.is_recruiter?
+    end
+    helper_method :user_recruiter?
 end

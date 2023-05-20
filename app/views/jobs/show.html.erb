@@ -20,7 +20,7 @@
     </div>
 
     <div class="w-100 mt-3">
-      <% if current_user && current_user != @job.user && !current_user.is_admin? %>
+      <% if current_user && current_user != @job.user && !current_user.is_admin? && !current_user.is_recruiter? %>
       <% @apply = @job.apply.find_by(user_id: current_user.id) %>
         <% if @apply.present? %>
           <%= button_to "Applied!", job_apply_index_path(@job, @apply), { disabled: true, class: "btn w-100" } %>
@@ -29,19 +29,6 @@
         <% end %>      
       <% end %>
     </div>
-
-    <div class="w-100 mt-3">
-    <% if current_user && current_user.is_recruiter? %>
-      <%= form_with(model: @application, url: job_application_path(@job, @application), method: :patch, local: true) do |form| %>
-        <div class="form-group">
-          <%= form.label :status %>
-          <%= form.select :status, options_for_select(["Interview", "Pending", "Rejected"], @application.status), {}, class: "form-control" %>
-        </div>
-        <%= form.submit "Update Status", class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </div>
-
 
     <div class="d-flex">
       <% if current_user && current_user == @job.user %>
