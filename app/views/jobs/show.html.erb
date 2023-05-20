@@ -16,16 +16,16 @@
     <p>Updated <%= time_ago_in_words(@job.updated_at) %> ago</p>
     <div class="d-flex flex-column">
       <small><%= @job.likes.count %> people are saved this job</small>
-      <small><%= @job.apply.count %> people are applied to this job</small>
+      <small><%= @job.applies.count %> people are applied to this job</small>
     </div>
 
     <div class="w-100 mt-3">
       <% if current_user && current_user != @job.user && !current_user.is_admin? && !current_user.is_recruiter? %>
-      <% @apply = @job.apply.find_by(user_id: current_user.id) %>
-        <% if @apply.present? %>
-          <%= button_to "Applied!", job_apply_index_path(@job, @apply), { disabled: true, class: "btn w-100" } %>
+      <% @applies = @job.applies.find_by(user_id: current_user.id) %>
+        <% if @applies.present? %>
+          <%= button_to "Applied!", job_applies_index_path(@job, @applies), { disabled: true, class: "btn w-100" } %>
         <% else %>
-          <%= button_to "Apply", job_apply_index_path(@job), method: :post, class: "btn btn-outline-primary w-100" %>
+          <%= button_to "applies", job_applies_index_path(@job), method: :post, class: "btn btn-outline-primary w-100" %>
         <% end %>      
       <% end %>
     </div>
@@ -40,7 +40,7 @@
 </div>
 
 
-<% if current_user && !@apply.present?  %>
+<% if current_user && !@applies.present?  %>
   <% @review = @job.reviews.find_by(user_id: current_user.id) %>
   <%= link_to "Write a Review", new_job_review_path(@job), class: "btn btn-primary w-100 mt-3" %>
 <% end %>

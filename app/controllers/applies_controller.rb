@@ -1,15 +1,15 @@
-class ApplyController < ApplicationController
+class AppliesController < ApplicationController
     before_action :authenticate_user!, only: [:index, :create]
 
     def index
-        @apply = current_user.apply.all.order(created_at: :desc)
+        @applies = current_user.applies.all.order(created_at: :desc)
     end
 
     def create
-        @apply = Apply.new
-        @apply.user = current_user
-        @apply.job = Job.find params[:job_id]
-        if @apply.save
+        @applies = Apply.new
+        @applies.user = current_user
+        @applies.job = Job.find params[:job_id]
+        if @applies.save
             redirect_to jobs_path, notice: "Applied!"
         else
             redirect_to jobs_path, alert: "You already applied!"

@@ -7,17 +7,10 @@ Rails.application.routes.draw do
   get '/home', to: 'home#index'
   root "home#index"
 
-  # patch '/jobs/:id/edit', to: 'jobs#update', as: 'job_update'
-
   resources :jobs do
-    resources :apply, only: [:create, :destroy]
-    resources :applications, only: [:new, :create]
+    resources :applies, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     get:liked, on: :collection
-  end
-
-  resources :applications, only: [:index] do
-    resources :statuses, only: [:update]
   end
 
   resources :jobs do
@@ -33,12 +26,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :apply, only: [:index]
-
-  resources :jobs do
-    resources :applications, only: [:new, :create]
-  end
-
-  resources :applications, only: [:index]
+  resources :applies, only: [:index]
 
 end

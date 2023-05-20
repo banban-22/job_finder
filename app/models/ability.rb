@@ -4,11 +4,6 @@ class Ability
     def initialize(user)
         user ||= User.new
 
-        # can :create, Job, user_id:user.id
-        # can :edit, Job, user_id:user.id
-        # can :delete, Job, user_id:user.id
-        # can :delete, Review, user_id:user.id
-
         if user.is_admin
             can :manage, :all
         else
@@ -19,8 +14,6 @@ class Ability
             can :create, Job, user_id:user.id
             can :edit, Job, user_id:user.id
             can :delete, Job, user_id:user.id
-            can :manage, Application, job: {user_id: user.id}
-            can :read, Application, job: {user_id: user.id}
         else
             can :manage, :read
         end
