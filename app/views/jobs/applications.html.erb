@@ -1,4 +1,4 @@
-<h1>All Applicants</h1>
+<h1>All Applications</h1>
 
 <div class="container">
   <% @applications.each do |job_id, applications| %>
@@ -9,7 +9,9 @@
       <% if applications.any? %>
         <% applications.each do |application| %>
           <li class="list-group-item">
-            <%= application.user.email %>
+          <%= link_to application.user do %>
+            <%= application.user.full_name %>
+            <% end %>
           </li>
         <% end %>
       <% else %>

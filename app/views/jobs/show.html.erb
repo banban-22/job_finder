@@ -40,7 +40,7 @@
 </div>
 
 
-<% if current_user && !@applies.present?  %>
+<% if current_user %>
   <% @review = @job.reviews.find_by(user_id: current_user.id) %>
   <%= link_to "Write a Review", new_job_review_path(@job), class: "btn btn-primary w-100 mt-3" %>
 <% end %>

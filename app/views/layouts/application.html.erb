@@ -29,7 +29,7 @@
             <%= link_to "Create Job Post", new_job_path, class: "nav-link text-primary" %> 
           </li>
           <li class="nav-item">
-            <%= link_to "See Applications", applications_path, class: "nav-link text-primary" %> 
+            <%= link_to "See All Applications", applications_path, class: "nav-link text-primary" %> 
           </li>
         <% else %>
           <li class="nav-item">
@@ -43,7 +43,7 @@
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= content_tag :p, class: "nav-item" do %>
-              <%= link_to edit_user_path(current_user), class: "nav-link" do %>
+              <%= link_to user_path(current_user), class: "nav-link" do %>
                 Hello <%= current_user.first_name %>
               <% end %>
             <% end %>
