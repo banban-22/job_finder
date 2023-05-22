@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
+  get '/applications', to: 'jobs#applications', as: 'applications'
+
+
   resource :sessions
 
   resources :users do

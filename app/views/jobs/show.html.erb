@@ -23,9 +23,9 @@
       <% if current_user && current_user != @job.user && !current_user.is_admin? && !current_user.is_recruiter? %>
       <% @applies = @job.applies.find_by(user_id: current_user.id) %>
         <% if @applies.present? %>
-          <%= button_to "Applied!", job_applies_index_path(@job, @applies), { disabled: true, class: "btn w-100" } %>
+          <%= button_to "Applied!", job_applies_path(@job, @applies), { disabled: true, class: "btn w-100" } %>
         <% else %>
-          <%= button_to "applies", job_applies_index_path(@job), method: :post, class: "btn btn-outline-primary w-100" %>
+          <%= button_to "Apply", job_applies_path(@job), method: :post, class: "btn btn-outline-primary w-100" %>
         <% end %>      
       <% end %>
     </div>

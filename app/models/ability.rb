@@ -11,11 +11,13 @@ class Ability
         end
 
         if user.is_recruiter
+            can :manage, Apply, job: {user_id: user.id}
             can :create, Job, user_id:user.id
             can :edit, Job, user_id:user.id
             can :delete, Job, user_id:user.id
         else
             can :manage, :read
+            can :manage, Apply, user_id: user.id
         end
 
         can :create, Apply do |apply|

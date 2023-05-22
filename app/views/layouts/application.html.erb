@@ -24,16 +24,16 @@
         <li class="nav-item">
           <%= link_to "Home", root_path, class: "nav-link text-primary" %> 
         </li>
-        <% if user_recruiter? %>
+        <% if user_signed_in? && user_recruiter? %>
           <li class="nav-item">
             <%= link_to "Create Job Post", new_job_path, class: "nav-link text-primary" %> 
           </li>
           <li class="nav-item">
-            <%= link_to "See Applications", applies_path, class: "nav-link text-primary" %> 
+            <%= link_to "See Applications", applications_path, class: "nav-link text-primary" %> 
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Show Applied Jobs", applies_index_path, class: "nav-link text-primary" %> 
+            <%= link_to "Show Applied Jobs", applies_path, class: "nav-link text-primary" %> 
           </li>
           <li class="nav-item">
             <%= link_to "Show Saved Jobs", liked_jobs_path, class: "nav-link text-primary" %> 

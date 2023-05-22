@@ -3,6 +3,7 @@ class JobsController < ApplicationController
     before_action :authorize_recruiter!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
+        @jobs = Job.all.order(created_at: :desc)
         if params[:q].present?
             @q = params[:q]
             @jobs = Job.search(@q)
@@ -14,14 +15,11 @@ class JobsController < ApplicationController
 
     def show
         @job = Job.find(params[:id])
-        @review = Review.new
-        @reviews = @job.reviews
-        @like = @job.likes.find_by(user: current_user)
+        @like = current_user.likes.find_by(job_id: @job.id) if current_user
     end
 
     def new
         @job = Job.new
-        @applications = Application.order(created_at: :desc)
     end
 
     def create
@@ -60,6 +58,20 @@ class JobsController < ApplicationController
 
     def liked
         @jobs = current_user.liked_jobs.order(created_at: :desc)
+    end
+
+    def applications
+        @jobs = current_user.jobs.includes(:applies)
+        # @job = Job.find(params[:id])
+        # @applications = Apply.where(job_id: @jobs.pluck (:id)).order(created_at: :desc)
+        @applications = {}
+
+        @jobs.each do |job|
+            @applications[job.id] = job.applies.order(created_at: :desc)
+        end
+
+        p @applications
+        p 'jobs', @jobs
     end
 
     private

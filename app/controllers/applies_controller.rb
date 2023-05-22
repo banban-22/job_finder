@@ -6,11 +6,15 @@ class AppliesController < ApplicationController
     end
 
     def create
+        @job = Job.find params[:job_id]
+        @apply = @job.applies.build(user: current_user)
         @applies = Apply.new
         @applies.user = current_user
         @applies.job = Job.find params[:job_id]
+
         if @applies.save
-            redirect_to jobs_path, notice: "Applied!"
+            ResponsesMailer.new_apply(@apply).deliver_now if @apply.persisted?
+            redirect_to jobs_path, notice: "Your Application submitted successfully!"
         else
             redirect_to jobs_path, alert: "You already applied!"
         end

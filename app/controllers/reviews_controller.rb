@@ -14,6 +14,7 @@ def create
   @review.user = current_user
 
   if @review.save
+    ResponsesMailer.new_review(@review).deliver_now
     redirect_to job_path(@job), notice: 'Review created!'
   else
     render '/jobs/show'

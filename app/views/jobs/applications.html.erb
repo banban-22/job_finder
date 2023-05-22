@@ -1,0 +1,20 @@
+<h1>All Applicants</h1>
+
+<div class="container">
+  <% @applications.each do |job_id, applications| %>
+    <% job = Job.find(job_id) %>
+    <h2><%= job.title %></h2>
+
+    <ul class="list-group list-group-flush">
+      <% if applications.any? %>
+        <% applications.each do |application| %>
+          <li class="list-group-item">
+            <%= application.user.email %>
+          </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item">No applications found for this job.</li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

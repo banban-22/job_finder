@@ -1,0 +1,11 @@
+<p>Hello <%= @owner.first_name %>,</p>
+
+<p>You have receiveed a new application to your job:</p>
+
+<h3>Job: <%= @job.title %></h3>
+
+<h5>Application: <%= @apply.current_user %></h5>
+<%= link_to "Show Application", applies_path %>
+
+<p>Best regards,</p>
+<p>Job Finder Team</p>
