@@ -36,7 +36,7 @@
 
 * Add reviews
 
-* Job saved(favourited) option (users can check them as a list)
+* Job saved option (users can check them as a list)
 
 * Only recruiters can change applicaiton status
 
