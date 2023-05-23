@@ -1,10 +1,11 @@
 <h1>All Applications</h1>
 
-<div class="container">
-  <% @applications.each do |job_id, applications| %>
-    <% job = Job.find(job_id) %>
-    <h2><%= job.title %></h2>
-
+<% @applications.each do |job_id, applications| %>
+  <% job = Job.find(job_id) %>
+  <div class="card mb-5">
+    <div class="card-header">
+    <%= link_to job.title, job_path(job) %>
+    </div>
     <ul class="list-group list-group-flush">
       <% if applications.any? %>
         <% applications.each do |application| %>
@@ -25,8 +26,10 @@
           </li>
         <% end %>
       <% else %>
-        <li class="list-group-item">No applications found for this job.</li>
+        <li class="list-group-item">
+          <h4>No applications found for this job.</h4>
+        </li>
       <% end %>
     </ul>
-  <% end %>
-</div>
+  </div>
+<% end %>
