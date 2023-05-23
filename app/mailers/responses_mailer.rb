@@ -6,9 +6,9 @@ class ResponsesMailer < ApplicationMailer
         mail(to: @owner.email, subject: "You got an review!")
     end
 
-    def new_apply(apply)
-        @apply = apply
-        @job = apply.job
+    def new_apply(applies)
+        @applies = applies
+        @job = applies.job
         @owner = @job.user
         mail(to: @owner.email, subject: "You got a new application!")
     end

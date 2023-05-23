@@ -14,7 +14,7 @@ class AppliesController < ApplicationController
         @applies.job = Job.find params[:job_id]
 
         if @applies.save
-            ResponsesMailer.new_apply(@apply).deliver_now if @apply.persisted?
+            ResponsesMailer.new_apply(@applies).deliver_now if @applies.persisted?
             redirect_to root_path, notice: "Your Application submitted successfully!"
         else
             redirect_to root_path, alert: "You already applied!"
@@ -29,7 +29,6 @@ class AppliesController < ApplicationController
             redirect_to applications_path, alert: "Failed to update status!"
         end
     end
-    # ResponsesMailer.status_update(@apply).deliver_now if @apply.persisted?
     
     private
     def load_job

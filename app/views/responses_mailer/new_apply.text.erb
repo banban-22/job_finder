@@ -1,11 +1,10 @@
 Hello <%= @owner.first_name %>,
 
-You have receiveed a new application to your job:
+You have received a new application to your job:
 
 Job: <%= @job.title %>
 
-Application: <%= @apply.current_user %>
-<%= link_to "Show Application", applies_path %>
+Application: <%= @applies.user.full_name %>
 
 Best regards,
 Job Finder Team
