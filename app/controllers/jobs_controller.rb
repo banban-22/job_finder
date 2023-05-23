@@ -3,7 +3,7 @@ class JobsController < ApplicationController
     before_action :authorize_recruiter!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
-        @jobs = Job.all.order(created_at: :desc)
+        @jobs = Job.all.order(created_at: :asc)
         if params[:q].present?
             @q = params[:q]
             @jobs = Job.search(@q)
@@ -25,6 +25,7 @@ class JobsController < ApplicationController
     def create
         @job = Job.new(job_params)
         @job.user = current_user
+        @job.job_type = params[:job][:job_type]
 
         if @job.save
             redirect_to @job, notice: 'Job was successfully created.'
@@ -39,6 +40,8 @@ class JobsController < ApplicationController
 
     def update
         @job = Job.find(params[:id])
+        @job.job_type = params[:job][:job_type]
+
         if @job.update job_params
             redirect_to job_path(@job)
         else

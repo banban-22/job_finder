@@ -5,7 +5,7 @@ class HomeController < ApplicationController
             @jobs = Job.search(@q)
         else
             @q = ""
-            @jobs = Job.all
+            @jobs = Job.all.order(created_at: :desc)
         end
     end
 end
