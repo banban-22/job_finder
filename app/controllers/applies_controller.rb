@@ -1,5 +1,6 @@
 class AppliesController < ApplicationController
     before_action :authenticate_user!, only: [:index, :create]
+    before_action :load_job, only: [:update_status]
 
     def index
         @applies = current_user.applies.all.order(created_at: :desc)
@@ -14,9 +15,28 @@ class AppliesController < ApplicationController
 
         if @applies.save
             ResponsesMailer.new_apply(@apply).deliver_now if @apply.persisted?
-            redirect_to jobs_path, notice: "Your Application submitted successfully!"
+            redirect_to root_path, notice: "Your Application submitted successfully!"
         else
-            redirect_to jobs_path, alert: "You already applied!"
+            redirect_to root_path, alert: "You already applied!"
         end
+    end
+
+    def update_status
+        @apply = Apply.find(params[:id])
+        if current_user.is_recruiter? && @apply.update(apply_params)
+            redirect_to applications_path, notice: "Status updated successfully!"
+        else
+            redirect_to applications_path, alert: "Failed to update status!"
+        end
+    end
+    # ResponsesMailer.status_update(@apply).deliver_now if @apply.persisted?
+    
+    private
+    def load_job
+        @job = Job.find params[:job_id]
+    end
+
+    def apply_params
+        params.require(:apply).permit(:status)
     end
 end

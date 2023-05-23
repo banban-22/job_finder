@@ -22,6 +22,10 @@
     <%= f.email_field :email, class: "form-control" %>
     </div>
     <div class="form-group mt-3">
+    <%= f.label :resume %>
+    <%= f.file_field :resume, class: "form-control" %>
+    </div>
+    <div class="form-group mt-3">
     <%= f.label :is_recruiter, "Are you a recruiter?" %>
     <%= f.check_box :is_recruiter %>
     </div>

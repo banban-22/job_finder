@@ -60,6 +60,8 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.1'
 
 gem 'ransack'
 
+gem 'activestorage'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

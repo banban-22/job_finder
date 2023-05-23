@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     def create
         @user = User.new user_params
         @user.is_recruiter = params[:user][:is_recruiter] == "1"
+        @user.resume.attach(params[:user][:resume])
         if @user.save
             session[:user_id] = @user.id
             redirect_to root_path, notice: 'Account created!'
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
     def update 
         @user = User.find(params[:id])
         @user.is_recruiter = params[:user][:is_recruiter] == "1"
+        @user.resume.attach(params[:user][:resume])
         if @user.save
             redirect_to root_path, notice: 'User updated successfully!'
         else
@@ -59,11 +61,6 @@ class UsersController < ApplicationController
     end
     end
 
-    def show
-        @user = User.find(params[:id])
-    end
-
-
     private
 
     def user_params
@@ -73,7 +70,8 @@ class UsersController < ApplicationController
             :email,
             :password,
             :password_confirmation,
-            :is_recruiter
+            :is_recruiter,
+            :resume
         )
     end
 end

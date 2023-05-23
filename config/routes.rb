@@ -31,4 +31,8 @@ Rails.application.routes.draw do
 
   resources :applies, only: [:index]
 
+  resources :applies do
+    patch 'update_status', on: :member
+  end
+
 end

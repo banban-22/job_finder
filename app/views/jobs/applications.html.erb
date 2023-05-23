@@ -8,9 +8,19 @@
     <ul class="list-group list-group-flush">
       <% if applications.any? %>
         <% applications.each do |application| %>
-          <li class="list-group-item">
-          <%= link_to application.user do %>
-            <%= application.user.full_name %>
+          <li class="list-group-item d-flex justify-content-between">
+            <div class="d-flex justify-content-start">
+              <%= link_to application.user.full_name, application.user %>
+              <div class="badge_gap">
+                <span class="badge bg-primary rounded-pill"><%= application.status %></span>
+              </div>
+            </div>
+            
+            <% if current_user.is_recruiter? %>
+              <%= form_with(model: application, url: update_status_apply_path(job_id: job.id, id: application.id), method: :patch, class: 'd-flex') do |f| %>
+                <%= f.select :status, ['Applied', 'Shortlisted', 'Interview', 'Reject'], { selected: 'Applied' }, class: "form-select form-select-sm" %>
+                <%= f.submit 'Update', class: "btn btn-primary update-btn" %>
+              <% end %>
             <% end %>
           </li>
         <% end %>
