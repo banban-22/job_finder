@@ -3,13 +3,13 @@ class JobsController < ApplicationController
     before_action :authorize_recruiter!, only: [:new, :create, :edit, :update, :destroy]
 
     def index
-        @jobs = Job.all.order(created_at: :asc)
+        @jobs = Job.all.order(created_at: :desc)
         if params[:q].present?
             @q = params[:q]
             @jobs = Job.search(@q)
         else
             @q = ""
-            @jobs = Job.all
+            @jobs = Job.all.order(created_at: :desc)
         end
     end
 
@@ -43,7 +43,7 @@ class JobsController < ApplicationController
         @job.job_type = params[:job][:job_type]
 
         if @job.update job_params
-            redirect_to job_path(@job)
+            redirect_to job_path(@job), notice: "Job is successfully updated!"
         else
             render :edit
         end
@@ -52,7 +52,7 @@ class JobsController < ApplicationController
     def destroy
         @job = Job.find(params[:id])
         @job.destroy
-        redirect_to jobs_path
+        redirect_to jobs_path, alert: "Job is successfully deleted!"
     end
 
     def authorize!
@@ -72,14 +72,11 @@ class JobsController < ApplicationController
         @jobs.each do |job|
             @applications[job.id] = job.applies.order(created_at: :desc)
         end
-
-        p @applications
-        p 'jobs', @jobs
     end
 
     private
     def job_params
-        params.require(:job).permit(:title, :description, :company, :location)
+        params.require(:job).permit(:title, :description, :company, :location, :job_type)
     end
 
     def authorize_recruiter!

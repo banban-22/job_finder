@@ -1,6 +1,6 @@
-    <%= form_with(url: jobs_path, method: :get) do |form| %>
-        <%= form.text_field :q, value: @q, placeholder: "Search By Title", class: "form-control" %>
-        <%= form.submit "Search!", class: "btn btn-outline-primary" %>
+    <%= form_with(url: jobs_path, method: :get, class: "row g-3 justify-content-center") do |form| %>
+        <%= form.text_field :q, value: @q, placeholder: "Search By Title", class: "col-auto form-control w-75" %>
+        <%= form.submit "Search!", class: "col-auto btn btn-outline-primary search-btn" %>
     <% end %>
     
     <div class="row">
@@ -21,7 +21,7 @@
                             </div>
                         <% end %>
                         <p class="card-text">
-                        <%= job.description %>
+                        <%= job.description.truncate(40) %>
                         </p>
                     </div>
                 </div>
