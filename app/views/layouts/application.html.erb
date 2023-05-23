@@ -39,12 +39,16 @@
             <%= link_to "Show Saved Jobs", liked_jobs_path, class: "nav-link text-primary" %> 
           </li>
         <% end %>
+      </ul>
+    </div>
 
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= content_tag :p, class: "nav-item" do %>
-              <%= link_to user_path(current_user), class: "nav-link" do %>
-                Hello <%= current_user.first_name %>
+      <ul class="navbar-nav d-flex justify-content-end align-items-center">
+
+      <% if user_signed_in? %>
+          <li class="nav-item align-items-center">
+            <%= content_tag :p, class: "nav-item mb-0" do %>
+              <%= link_to user_path(current_user), class: "nav-link btn btn-primary text-white" do %>
+                Hello <%= current_user.first_name %>,
               <% end %>
             <% end %>
           </li>
@@ -60,9 +64,8 @@
           </li>
         <% end %>
       </ul>
-    </div>
-
   </nav>
+
     <div class="container" style="margin-top: 5rem;">
       <% if flash[:notice] %>
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
