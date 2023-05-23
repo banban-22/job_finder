@@ -1,6 +1,6 @@
-    <%= form_tag(jobs_path, method: :get, params: { q: @q }) do %>
-        <%= text_field_tag :q, @q, placeholder: "Search By Title" %>
-        <%= submit_tag "Search!" %>
+    <%= form_with(url: jobs_path, method: :get, class: "row g-3") do |form| %>
+        <%= form.text_field :q, value: @q, placeholder: "Search By Title", class: "col-auto form-control w-75" %>
+        <%= form.submit "Search!", class: "col-auto btn btn-outline-primary search-btn" %>
     <% end %>
     
     <div class="row">
