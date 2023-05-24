@@ -48,8 +48,6 @@ gem 'pry-rails', '~> 0.3.9'
 
 gem 'faker', '~> 3.2'
 
-gem 'cowsay', '~> 0.3.0'
-
 gem 'cancancan', '~> 3.5'
 
 gem 'jquery-rails', '~> 4.4'
@@ -78,6 +76,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
   gem 'cowsay', '~> 0.3.0'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
