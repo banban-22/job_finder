@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'sessions/create'
   get 'sessions/destroy'
+  delete '/logout', to: 'sessions#destroy', as: :logout
   get '/search', to: 'search#search'
   get '/home', to: 'home#index'
   root "home#index"
