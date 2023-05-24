@@ -16,6 +16,8 @@ class JobsController < ApplicationController
     def show
         @job = Job.find(params[:id])
         @like = current_user.likes.find_by(job_id: @job.id) if current_user
+        @review = Review.new
+        @reviews = @job.reviews.order(created_at: :desc)
     end
 
     def new
