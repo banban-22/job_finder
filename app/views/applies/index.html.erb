@@ -9,7 +9,15 @@
             <%= a.job.title %>
           <% end %>
           <div class="badge_gap">
+          <% if a.status == "Reject" %>
+            <span class="badge bg-danger rounded-pill"><%= a.status %></span>
+            <% elsif a.status == "Shortlisted" %>
             <span class="badge bg-primary rounded-pill"><%= a.status %></span>
+            <% elsif a.status == "Interview" %>
+            <span class="badge bg-success rounded-pill"><%= a.status %></span>
+            <% else %>
+            <span class="badge bg-secondary rounded-pill"><%= a.status %></span>
+          <% end %>
           </div>
         </li>
       <% end %>

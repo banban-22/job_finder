@@ -44,7 +44,8 @@
       </ul>
     </div>
 
-      <ul class="navbar-nav d-flex justify-content-end align-items-center">
+    <div class="d-flex justify-content-end align-items-center">
+      <ul class="navbar-nav">
       <% if user_signed_in? %>
           <li class="nav-item align-items-center">
             <%= content_tag :p, class: "nav-item mb-0" do %>
@@ -66,6 +67,7 @@
         <% end %>
       </ul>
   </nav>
+  </div>
 
     <div class="container" style="margin-top: 5rem;">
       <% if flash[:notice] %>

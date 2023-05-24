@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
     validates :first_name, presence: true
     validates :last_name, presence: true
-    validates :email, presence: true, uniqueness: {message: "should be unique", case_sensitive: false}
+    validates :email, presence: true, uniqueness: {message: "has already used", case_sensitive: false}
 
     def full_name
         "#{first_name} #{last_name}"
