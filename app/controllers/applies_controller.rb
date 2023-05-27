@@ -29,6 +29,14 @@ class AppliesController < ApplicationController
             redirect_to applications_path, alert: "Failed to update status!"
         end
     end
+
+    def send_monthly_analysis
+        @users = User.all
+        @users.each do |user|
+            ResponsesMailer.monthly_analysis(user).deliver_now
+        end
+        redirect_to root_path, notice: "Monthly analysis sent successfully!"
+    end
     
     private
     def load_job
