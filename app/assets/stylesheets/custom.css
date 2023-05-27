@@ -1,4 +1,6 @@
-.delete-btn{
+.delete-btn,
+.update-btn,
+.search-btn {
     margin-left: 10px;
 }
 
@@ -7,4 +9,8 @@
     flex-direction: row !important ;
     justify-content: space-between !important ;
     align-items: center !important ;
+}
+
+.badge_gap {
+    margin-left: 10px;
 }

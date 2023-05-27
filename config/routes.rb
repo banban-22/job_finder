@@ -3,14 +3,13 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'sessions/create'
   get 'sessions/destroy'
+  delete '/logout', to: 'sessions#destroy', as: :logout
   get '/search', to: 'search#search'
   get '/home', to: 'home#index'
   root "home#index"
 
-  # patch '/jobs/:id/edit', to: 'jobs#update', as: 'job_update'
-
   resources :jobs do
-    resources :apply, only: [:create, :destroy]
+    resources :applies, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     get:liked, on: :collection
   end
@@ -18,6 +17,9 @@ Rails.application.routes.draw do
   resources :jobs do
     resources :reviews
   end
+
+  get '/applications', to: 'jobs#applications', as: 'applications'
+
 
   resource :sessions
 
@@ -28,12 +30,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :apply, only: [:index]
+  resources :applies, only: [:index]
 
-  resources :jobs do
-    resources :applications, only: [:new, :create]
+  resources :applies do
+    patch 'update_status', on: :member
   end
-
-  resources :applications, only: [:index]
 
 end

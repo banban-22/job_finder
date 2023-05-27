@@ -19,7 +19,7 @@ class LikesController < ApplicationController
     def destroy
         @like = current_user.likes.find(params[:id])
         
-        if can?(:destory, @like)
+        if can?(:destroy, @like)
             @like.destroy
             redirect_to job_path(@like.job), notice: 'Job was unsaved!'
         else
