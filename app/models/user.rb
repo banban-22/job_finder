@@ -17,4 +17,20 @@ class User < ApplicationRecord
     def full_name
         "#{first_name} #{last_name}"
     end
+
+    def generate_reset_password_token!
+        self.reset_password_token = SecureRandom.urlsafe_base64
+        self.reset_password_token_expires_at = 30.minutes.from_now
+        save!
+    end
+
+    # def reset_password_token_valid?
+    #     reset_password_token_expires_at && reset_password_token_expires_at > Time.now
+    # end
+
+    def clear_reset_password_token!
+        self.reset_password_token = nil
+        self.reset_password_token_expires_at = nil
+        save!
+    end
 end

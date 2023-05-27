@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
   resources :articles
   get 'sessions/new'
   get 'sessions/create'
@@ -34,6 +38,13 @@ Rails.application.routes.draw do
 
   resources :applies do
     patch 'update_status', on: :member
+    get 'send_monthly_analysis', on: :collection
   end
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
+# get '/forgot_password', to: 'users#forgot_password', as: 'forgot_password'
+# post '/forgot_password', to: 'users#send_reset_password_email', as: 'send_reset_password_email'
+# get '/reset_password', to: 'users#reset_password', as: 'reset_password'
+# patch '/reset_password', to: 'users#update_password', as: 'update_password'
 end

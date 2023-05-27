@@ -6,6 +6,8 @@ ruby "3.0.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
+gem 'bundler', '~> 2.4', '>= 2.4.13'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -59,6 +61,8 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.1'
 gem 'ransack'
 
 gem 'activestorage'
+
+gem 'whenever', require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
