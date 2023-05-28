@@ -35,4 +35,5 @@
 /config/credentials/production.key
 
 # Ignore secret key
-/config/credentials/secret_key_base.key
+/config/credentials
+
