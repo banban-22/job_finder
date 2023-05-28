@@ -15,13 +15,14 @@ class ResponsesController < ApplicationController
             redirect_to review_path(@review), notice: 'Review created!'
         else
             render 'jobs/show'
+        end
     end
 
     def destroy
         @job = Job.find(job_id)
         @review = Review.find(params[:id])
 
-        if cna?(:delete, @review) == false
+        if can?(:delete, @review) == false
             redirect_to root_path, alert: 'User Not Authorized!'
         else
             @review.destroy
