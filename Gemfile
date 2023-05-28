@@ -44,7 +44,7 @@ gem "bootsnap", require: false
 
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 
-gem 'pry-rails', '~> 0.3.9'
+# gem 'pry-rails', '~> 0.3.9'
 
 gem 'faker', '~> 3.2'
 
