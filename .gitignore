@@ -32,3 +32,6 @@
 
 # Ignore app_keys.rb
 /config/initializers/app_keys.rb
+
+# Ignore secret_key_base
+/config/credentials
