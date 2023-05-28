@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: job_finder_production
   username: job_finder
   password: <%= ENV["JOB_FINDER_DATABASE_PASSWORD"] %>
